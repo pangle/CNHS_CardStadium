@@ -1,0 +1,8 @@
+2 3 (gridSize columns rows)
+r g b (color 1)
+r g b (color 2)
+2 (number steps)
+step name
+intintintintint ... (the colors of each card. goes through all columns in row 1, then all columns in row 2, etc.)
+step name
+intintintintint ... (the colors of each card. goes through all columns in row 1, then all columns in row 2, etc.)

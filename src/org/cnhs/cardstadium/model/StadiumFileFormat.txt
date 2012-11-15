@@ -1,0 +1,10 @@
+stadiumBG.gif (stadium backgroud image path)
+0 0 (upperLeftPoint)
+1 1 (upperRightPoint)
+2 2 (lowerLeftPoint)
+3 3 (lowerRightPoint)
+4 5 (verticalSubdivisions horizontalSubdivisions)
+6.0 (subdivisionGutterSize)
+2 (number of sequences)
+sequence1.txt
+sequence2.txt
