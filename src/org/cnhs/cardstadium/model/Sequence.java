@@ -124,7 +124,7 @@ public class Sequence extends DefaultListModel{
             }
         }
         //add the step to the sequence
-        addStep(index, step, "Step " + (index + 1));
+        addStep(index, step, "New Step");
     }
 
     /**
