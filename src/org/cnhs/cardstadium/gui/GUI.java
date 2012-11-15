@@ -675,14 +675,9 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
     }//GEN-LAST:event_menuBar_FileMenu_SaveMenu_SequenceItemActionPerformed
 
     private void toolSet_StepsSet_AddStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolSet_StepsSet_AddStepActionPerformed
-        Object[] options = new Object[sequence.getNumSteps()+1];
-        for (int i = 0; i < sequence.getNumSteps()+1; i++) {
-            options[i] = i;
-        }
-        String selection = JOptionPane.showInputDialog(this, "Add a step before step...", "Add Step", JOptionPane.INFORMATION_MESSAGE, null, options, options[options.length-1]).toString();
-        System.out.println("SELECTED: " + selection);
-        sequence.newStep(new Integer(selection));
+        sequence.newStep(perspectivePanel.getCardLayer().getStep() + 1);
         perspectivePanel.repaint();
+        toolSet_StepsSet_StepList.setSelectedIndex(perspectivePanel.getCardLayer().getStep() + 1);
     }//GEN-LAST:event_toolSet_StepsSet_AddStepActionPerformed
 
     private void menuBar_FileMenu_PrintItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_FileMenu_PrintItemActionPerformed
@@ -800,8 +795,8 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                     sfc.getSelectedFile().getAbsolutePath(),
                     new MediaTracker(this), this)), sequence.getGridSize(), 4),
                     "New Step");
-            //display the new step
-            perspectivePanel.getCardLayer().setStep(sequence.getNumSteps() - 1);
+            //set the correct step to be selected in the list
+            toolSet_StepsSet_StepList.setSelectedIndex(sequence.getNumSteps() - 1);
         }
     }//GEN-LAST:event_menuBar_SequenceMenu_StepFromImageItemActionPerformed
 
@@ -839,12 +834,14 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         if(name != null && !name.equals("")){
             ((Step)(toolSet_StepsSet_StepList.getSelectedValue())).setName(name);
         }
+        toolSet_StepsSet_StepList.updateUI();
     }//GEN-LAST:event_toolSet_StepsSet_RenameStepActionPerformed
 
     private void toolSet_StepsSet_DuplicateStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolSet_StepsSet_DuplicateStepActionPerformed
         int index = perspectivePanel.getCardLayer().getStep();
         sequence.addStep(index + 1, (int[][])DeepCopy.copy(sequence.getStep(index)), "Copy of "
                 + sequence.getStepName(index));
+        toolSet_StepsSet_StepList.setSelectedIndex(index + 1);
     }//GEN-LAST:event_toolSet_StepsSet_DuplicateStepActionPerformed
 
     private void syncSequenceToGUI() {
