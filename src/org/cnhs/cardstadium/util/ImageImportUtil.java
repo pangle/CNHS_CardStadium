@@ -18,7 +18,7 @@ import java.util.HashMap;
  *
  * @author pangle
  */
-public class GameImageUtil {
+public class ImageImportUtil {
 
 //    public static BufferedImage convertToBufferedImage(Image img, Dimension dim) {
 //        BufferedImage bufferImage = new BufferedImage((int) dim.getWidth(), (int) dim.getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -116,7 +116,7 @@ public class GameImageUtil {
         int imageX = (int) (i.getWidth() * scale);
         int imageY = (int) (i.getHeight() * scale);
 
-        BufferedImage scaledInstance = GameImageUtil.getBufferedImage(i.getScaledInstance(
+        BufferedImage scaledInstance = ImageImportUtil.getBufferedImage(i.getScaledInstance(
                 imageX, imageY, Image.SCALE_SMOOTH));
         Graphics g = newImage.getGraphics();
         //g.setColor(new Color(0.0f, 0.0f, 0.0f, alpha));

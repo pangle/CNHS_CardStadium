@@ -17,7 +17,7 @@ import org.cnhs.cardstadium.model.Stadium;
 import org.cnhs.cardstadium.model.Step;
 import org.cnhs.cardstadium.util.ColorPickerButtonDelegate;
 import org.cnhs.cardstadium.util.DeepCopy;
-import org.cnhs.cardstadium.util.GameImageUtil;
+import org.cnhs.cardstadium.util.ImageImportUtil;
 import org.cnhs.cardstadium.util.SequencePrinter;
 import org.cnhs.cardstadium.util.StadiumSyncUtil;
 
@@ -789,9 +789,9 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         if (choice == JFileChooser.APPROVE_OPTION) {
             //set the step to be displayed
             sequence.addStep(sequence.getNumSteps(),
-                    GameImageUtil.getStepFromImage(
-                    GameImageUtil.getBufferedImage(
-                    GameImageUtil.loadImageWithLocation(
+                    ImageImportUtil.getStepFromImage(
+                    ImageImportUtil.getBufferedImage(
+                    ImageImportUtil.loadImageWithLocation(
                     sfc.getSelectedFile().getAbsolutePath(),
                     new MediaTracker(this), this)), sequence.getGridSize(), 4),
                     "New Step");

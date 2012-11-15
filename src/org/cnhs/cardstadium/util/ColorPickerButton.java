@@ -54,7 +54,7 @@ public class ColorPickerButton extends JButton {
     }
     
     private void pickColor() {
-        Color newColor = JColorChooser.showDialog(this, "Colors", color);
+        Color newColor = JColorChooser.showDialog(this.getRootPane(), "Colors", color);
         if (newColor != null) {
             color = newColor;
             if (delegate != null) {

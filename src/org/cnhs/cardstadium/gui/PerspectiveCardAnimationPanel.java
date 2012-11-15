@@ -24,7 +24,7 @@ import org.cnhs.cardstadium.util.PointUtil;
  * @author workstation
  */
 public class PerspectiveCardAnimationPanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
-    public static final int ANIMATION_FRAME_RATE = 30;
+    public static final int ANIMATION_FRAME_RATE = 5;
     
     private BufferedImage cards;
     private StepArtist artist;

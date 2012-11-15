@@ -37,6 +37,12 @@ public class ImageUtil {
         return bufimg;
     }
     
+    /**
+     * Load an image with the given file location URL.
+     * @param location
+     * @param requestor
+     * @return 
+     */
     public static Image loadImageWithLocation(URL location, JComponent requestor) {
         Image image = null;
 
@@ -53,6 +59,12 @@ public class ImageUtil {
         return image;
     }
     
+    /**
+     * Load an image with the given file location String.
+     * @param location
+     * @param requestor
+     * @return 
+     */
     public static Image loadImageWithLocation(String location, JComponent requestor) {
         try {
             return loadImageWithLocation(new URL(location), requestor);
@@ -63,10 +75,24 @@ public class ImageUtil {
         }
     }
     
+    /**
+     * Load an image with the given class path such as, "org/cnhs/cardstadium"
+     * @param classpathLocation
+     * @param requestor
+     * @return 
+     */
     public static Image loadImageWithClasspathLocation(String classpathLocation, JComponent requestor) {
         return loadImageWithLocation(requestor.getClass().getClassLoader().getResource(classpathLocation), requestor);
     }
     
+    /**
+     * Create an image within the given dimensions, scaled to the top-left corner.
+     * @param i
+     * @param newImageWidth
+     * @param newImageHeight
+     * @param alpha
+     * @return 
+     */
     public static BufferedImage createImageInSize(BufferedImage i, int newImageWidth, int newImageHeight, float alpha) {
         BufferedImage newImage = new BufferedImage(newImageWidth, newImageHeight, BufferedImage.TYPE_INT_ARGB);
 
@@ -90,6 +116,10 @@ public class ImageUtil {
         return newImage;
     }
     
+    /**
+     * Wait for all images in the given MediaTracker. This method blocks the thread.
+     * @param t 
+     */
     private static void waitForAllImages(MediaTracker t) {
         try {
             t.waitForAll();

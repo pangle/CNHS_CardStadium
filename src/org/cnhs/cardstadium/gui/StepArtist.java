@@ -113,7 +113,7 @@ public class StepArtist {
         Graphics g = img.getGraphics();
         
         Graphics2D g2 = (Graphics2D) g;
-        //g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         //create a Random object
         Random randy = new Random();

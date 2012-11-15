@@ -11,7 +11,7 @@ import java.awt.MediaTracker;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.JPanel;
-import org.cnhs.cardstadium.util.GameImageUtil;
+import org.cnhs.cardstadium.util.ImageImportUtil;
 
 /**
  *
@@ -32,11 +32,11 @@ public class PerspectiveStadiumPanel extends JPanel {
     
     public void setStadium(File file) {
         if (file.getName().equals("DEFAULT")) {
-            this.stadium = GameImageUtil.getBufferedImage(GameImageUtil.loadImageWithClasspathLocation("org/cnhs/cardstadium/gui/DefaultStadium.png", new MediaTracker(this), this));
+            this.stadium = ImageImportUtil.getBufferedImage(ImageImportUtil.loadImageWithClasspathLocation("org/cnhs/cardstadium/gui/DefaultStadium.png", new MediaTracker(this), this));
         } else {
-            Image tmp = GameImageUtil.loadImageWithLocation(file.getAbsolutePath(), new MediaTracker(this), this);
+            Image tmp = ImageImportUtil.loadImageWithLocation(file.getAbsolutePath(), new MediaTracker(this), this);
             
-            this.stadium = GameImageUtil.getBufferedImage(tmp);
+            this.stadium = ImageImportUtil.getBufferedImage(tmp);
         }
     }
     
@@ -44,7 +44,7 @@ public class PerspectiveStadiumPanel extends JPanel {
     private Dimension cachedDimension;
      
     public PerspectiveStadiumPanel() {
-        this.stadium = GameImageUtil.getBufferedImage(GameImageUtil.loadImageWithClasspathLocation("org/cnhs/cardstadium/gui/DefaultStadium.png", new MediaTracker(this), this));
+        this.stadium = ImageImportUtil.getBufferedImage(ImageImportUtil.loadImageWithClasspathLocation("org/cnhs/cardstadium/gui/DefaultStadium.png", new MediaTracker(this), this));
     }
      
     @Override
@@ -52,7 +52,7 @@ public class PerspectiveStadiumPanel extends JPanel {
         super.paint(g);
         if (stadium != null) {
             if (cachedDimension == null || !cachedDimension.equals(this.getSize())) {
-                cachedStadium = GameImageUtil.createImageInSize(stadium, this.getWidth(), this.getHeight(), 1.0f);
+                cachedStadium = ImageImportUtil.createImageInSize(stadium, this.getWidth(), this.getHeight(), 1.0f);
                 cachedDimension = this.getSize();
             }
             g.drawImage(cachedStadium, 0, 0, this); 
