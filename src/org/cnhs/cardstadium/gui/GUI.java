@@ -7,8 +7,10 @@ package org.cnhs.cardstadium.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.MediaTracker;
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -38,6 +40,12 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         this.addMouseMotionListener(perspectivePanel);
         this.addKeyListener(perspectivePanel);
         this.addComponentListener(perspectivePanel);
+
+        final ArrayList<Image> icons = new ArrayList<>();
+        icons.add(ImageImportUtil.loadImageWithClasspathLocation("org/cnhs/cardstadium/CardStadium-16.png", new MediaTracker(this), this));
+        icons.add(ImageImportUtil.loadImageWithClasspathLocation("org/cnhs/cardstadium/CardStadium-32.png", new MediaTracker(this), this));
+        
+        this.setIconImages(icons);
 
         //stadium = new Stadium();
         StadiumSyncUtil.syncStadiumToEditor(stadium, perspectivePanel.getEditorLayer());
@@ -108,7 +116,7 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         toolSet_SequenceSet_SchoolColorNoPaint = new javax.swing.JRadioButton();
         toolSet_SequenceSet_SchoolColor1Paint = new javax.swing.JRadioButton();
         toolSet_SequenceSet_SchoolColor2Paint = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
+        appIcon = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         menuBar_FileMenu = new javax.swing.JMenu();
         menuBar_FileMenu_OpenMenu = new javax.swing.JMenu();
@@ -121,6 +129,7 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         menuBar_FileMenu_SaveAsMenu_StadiumItem = new javax.swing.JMenuItem();
         menuBar_FileMenu_SaveAsMenu_SequenceItem = new javax.swing.JMenuItem();
         menuBar_FileMenu_PrintItem = new javax.swing.JMenuItem();
+        menuBar_FileMenu_AboutWindow = new javax.swing.JMenuItem();
         menuBar_StadiumMenu = new javax.swing.JMenu();
         menuBar_StadiumMenu_BackgroundSetItem = new javax.swing.JMenuItem();
         menuBar_StadiumMenu_BackgroundDefaultItem = new javax.swing.JMenuItem();
@@ -247,19 +256,18 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         toolSet_StepsSetLayout.setHorizontalGroup(
             toolSet_StepsSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toolSet_StepsSetLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(toolSet_StepsSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(toolSet_StepsSet_DeleteStep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(toolSet_StepsSet_AddStep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(toolSet_StepsSet_RenameStep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(toolSet_StepsSet_DuplicateStep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(toolSet_StepsSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(toolSet_StepsSet_DeleteStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(toolSet_StepsSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(toolSet_StepsSet_DuplicateStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                        .addComponent(toolSet_StepsSet_AddStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(toolSet_StepsSet_RenameStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         toolSet_StepsSetLayout.setVerticalGroup(
             toolSet_StepsSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(toolSet_StepsSetLayout.createSequentialGroup()
                 .addComponent(toolSet_StepsSet_DeleteStep)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -267,7 +275,9 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(toolSet_StepsSet_RenameStep)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(toolSet_StepsSet_DuplicateStep))
+                .addComponent(toolSet_StepsSet_DuplicateStep)
+                .addContainerGap())
+            .addComponent(jScrollPane1)
         );
 
         perspectivePanel.setFocusable(false);
@@ -324,7 +334,7 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                         .addComponent(toolSet_DisplaySet_Error_Label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(toolSet_DisplaySet_ErrorToggle))
-                    .addComponent(toolSet_DisplaySet_ErrorLevel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(toolSet_DisplaySet_ErrorLevel, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
                     .addGroup(toolSet_DisplaySetLayout.createSequentialGroup()
                         .addComponent(toolSet_DisplaySet_TransitionSpeed_Label)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -340,11 +350,11 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                     .addComponent(toolSet_DisplaySet_ErrorToggle))
                 .addGap(5, 5, 5)
                 .addComponent(toolSet_DisplaySet_ErrorLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(toolSet_DisplaySet_TransitionSpeed_Label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(toolSet_DisplaySet_TransitionSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(toolSet_DisplaySet_EditorDisplayToggle)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -369,7 +379,7 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
             }
         });
 
-        toolSet_SequenceSet_SchoolColor_Label.setText("School Colors:");
+        toolSet_SequenceSet_SchoolColor_Label.setText("Colors:");
 
         toolSet_SequenceSet_SchoolColor1.setText("colorPickerButton1");
 
@@ -413,14 +423,15 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(toolSet_SequenceSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(toolSet_SequenceSetLayout.createSequentialGroup()
-                        .addComponent(toolSet_SequenceSet_Row, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(toolSet_SequenceSet_SchoolColor_Label))
-                    .addGroup(toolSet_SequenceSetLayout.createSequentialGroup()
                         .addComponent(toolSet_SequenceSet_Column, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                        .addComponent(toolSet_SequenceSet_SchoolColorNoPaint)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(toolSet_SequenceSet_SchoolColorNoPaint)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(toolSet_SequenceSetLayout.createSequentialGroup()
+                        .addComponent(toolSet_SequenceSet_Row, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(toolSet_SequenceSet_SchoolColor_Label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(toolSet_SequenceSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toolSet_SequenceSet_SchoolColor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(toolSet_SequenceSet_SchoolColor1Paint))
@@ -454,7 +465,7 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jLabel1.setText("Always use stateChanged!!!");
+        appIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cnhs/cardstadium/CardStadium-32.png"))); // NOI18N
 
         menuBar_FileMenu.setText("File");
 
@@ -526,6 +537,14 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         });
         menuBar_FileMenu.add(menuBar_FileMenu_PrintItem);
 
+        menuBar_FileMenu_AboutWindow.setText("About");
+        menuBar_FileMenu_AboutWindow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBar_FileMenu_AboutWindowActionPerformed(evt);
+            }
+        });
+        menuBar_FileMenu.add(menuBar_FileMenu_AboutWindow);
+
         menuBar.add(menuBar_FileMenu);
 
         menuBar_StadiumMenu.setText("Stadium");
@@ -575,16 +594,17 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(toolSet_StadiumSet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(toolSet_DisplaySet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(toolSet_SequenceSet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(toolSet_StepsSet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addComponent(toolSet_StadiumSet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(toolSet_SequenceSet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(toolSet_StepsSet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(toolSet_DisplaySet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(appIcon)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(perspectivePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE))
+                .addComponent(perspectivePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -596,8 +616,8 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                 .addComponent(toolSet_StepsSet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(toolSet_DisplaySet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(appIcon)
                 .addContainerGap())
             .addComponent(perspectivePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -639,7 +659,7 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         sequence = Sequence.loadSequenceWithFileChooser(perspectivePanel.stadiumLayer);
         if (sequence != null) {
             perspectivePanel.getCardLayer().setSequence(sequence);
-             perspectivePanel.getCardLayer().setStep(0);
+             toolSet_StepsSet_StepList.setSelectedIndex(0);
              perspectivePanel.getCardLayer().setError(0);
             perspectivePanel.getCardLayer().setVisible(true);
             toolSet_SequenceSet_SchoolColor1.setColor(sequence.getC1());
@@ -698,18 +718,6 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         perspectivePanel.repaint();
     }//GEN-LAST:event_toolSet_SequenceSet_ColumnStateChanged
 
-    private void toolSet_StadiumSet_RowStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toolSet_StadiumSet_RowStateChanged
-        perspectivePanel.editorLayer.setHorizontalSubdivisions(new Integer(toolSet_StadiumSet_Row.getValue().toString()));
-        perspectivePanel.editorLayer.invalidateCache();
-        perspectivePanel.repaint();
-    }//GEN-LAST:event_toolSet_StadiumSet_RowStateChanged
-
-    private void toolSet_StadiumSet_ColumnStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toolSet_StadiumSet_ColumnStateChanged
-        perspectivePanel.editorLayer.setVerticalSubdivisions(new Integer(toolSet_StadiumSet_Column.getValue().toString()));
-        perspectivePanel.editorLayer.invalidateCache();
-        perspectivePanel.repaint();
-    }//GEN-LAST:event_toolSet_StadiumSet_ColumnStateChanged
-
     private void menuBar_FileMenu_SaveAsMenu_StadiumItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_FileMenu_SaveAsMenu_StadiumItemActionPerformed
         JFileChooser sfc = new JFileChooser();
 
@@ -747,11 +755,6 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
     private void toolSet_DisplaySet_EditorDisplayToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolSet_DisplaySet_EditorDisplayToggleActionPerformed
         perspectivePanel.editorLayer.setVisible(toolSet_DisplaySet_EditorDisplayToggle.isSelected());
     }//GEN-LAST:event_toolSet_DisplaySet_EditorDisplayToggleActionPerformed
-
-    private void toolSet_StadiumSet_GutterSizeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toolSet_StadiumSet_GutterSizeStateChanged
-        perspectivePanel.editorLayer.setSubdivisionGutterSize((double)toolSet_StadiumSet_GutterSize.getValue() / 10000.0);
-        perspectivePanel.editorLayer.invalidateCache();
-    }//GEN-LAST:event_toolSet_StadiumSet_GutterSizeStateChanged
 
     private void menuBar_StadiumMenu_BackgroundSetItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_StadiumMenu_BackgroundSetItemActionPerformed
         JFileChooser sfc = new JFileChooser();
@@ -844,6 +847,31 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         toolSet_StepsSet_StepList.setSelectedIndex(index + 1);
     }//GEN-LAST:event_toolSet_StepsSet_DuplicateStepActionPerformed
 
+    private void menuBar_FileMenu_AboutWindowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_FileMenu_AboutWindowActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AboutDialog().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_menuBar_FileMenu_AboutWindowActionPerformed
+
+    private void toolSet_StadiumSet_GutterSizeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toolSet_StadiumSet_GutterSizeStateChanged
+        perspectivePanel.editorLayer.setSubdivisionGutterSize((double)toolSet_StadiumSet_GutterSize.getValue() / 10000.0);
+        perspectivePanel.editorLayer.invalidateCache();
+    }//GEN-LAST:event_toolSet_StadiumSet_GutterSizeStateChanged
+
+    private void toolSet_StadiumSet_RowStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toolSet_StadiumSet_RowStateChanged
+        perspectivePanel.editorLayer.setHorizontalSubdivisions(new Integer(toolSet_StadiumSet_Row.getValue().toString()));
+        perspectivePanel.editorLayer.invalidateCache();
+        perspectivePanel.repaint();
+    }//GEN-LAST:event_toolSet_StadiumSet_RowStateChanged
+
+    private void toolSet_StadiumSet_ColumnStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toolSet_StadiumSet_ColumnStateChanged
+        perspectivePanel.editorLayer.setVerticalSubdivisions(new Integer(toolSet_StadiumSet_Column.getValue().toString()));
+        perspectivePanel.editorLayer.invalidateCache();
+        perspectivePanel.repaint();
+    }//GEN-LAST:event_toolSet_StadiumSet_ColumnStateChanged
+
     private void syncSequenceToGUI() {
         toolSet_SequenceSet_Row.setValue(sequence.getGridSize().height);
         toolSet_SequenceSet_Column.setValue(sequence.getGridSize().width);
@@ -897,12 +925,13 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel appIcon;
     private javax.swing.ButtonGroup colorButtons;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuBar_FileMenu;
+    private javax.swing.JMenuItem menuBar_FileMenu_AboutWindow;
     private javax.swing.JMenu menuBar_FileMenu_OpenMenu;
     private javax.swing.JMenuItem menuBar_FileMenu_OpenMenu_SequenceItem;
     private javax.swing.JMenuItem menuBar_FileMenu_OpenMenu_StadiumItem;

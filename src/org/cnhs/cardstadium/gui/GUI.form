@@ -92,6 +92,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuBar_FileMenu_PrintItemActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuBar_FileMenu_AboutWindow">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="About"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuBar_FileMenu_AboutWindowActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuBar_StadiumMenu">
@@ -167,18 +175,20 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="toolSet_StadiumSet" alignment="0" max="32767" attributes="0"/>
+                      <Component id="toolSet_DisplaySet" alignment="0" max="32767" attributes="0"/>
+                      <Component id="toolSet_SequenceSet" alignment="0" max="32767" attributes="0"/>
+                      <Component id="toolSet_StepsSet" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="toolSet_StadiumSet" alignment="0" max="32767" attributes="0"/>
-                  <Component id="toolSet_SequenceSet" alignment="0" max="32767" attributes="0"/>
-                  <Component id="toolSet_StepsSet" alignment="0" max="32767" attributes="0"/>
-                  <Component id="toolSet_DisplaySet" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="appIcon" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="perspectivePanel" pref="533" max="32767" attributes="0"/>
+              <Component id="perspectivePanel" pref="543" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -192,8 +202,8 @@
               <Component id="toolSet_StepsSet" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="toolSet_DisplaySet" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
+              <Component id="appIcon" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Component id="perspectivePanel" max="32767" attributes="0"/>
@@ -320,14 +330,15 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
+                  <Component id="jScrollPane1" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="23" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="toolSet_StepsSet_DeleteStep" alignment="0" max="32767" attributes="0"/>
-                      <Component id="toolSet_StepsSet_AddStep" alignment="0" max="32767" attributes="0"/>
-                      <Component id="toolSet_StepsSet_RenameStep" max="32767" attributes="0"/>
-                      <Component id="toolSet_StepsSet_DuplicateStep" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="toolSet_StepsSet_DeleteStep" alignment="1" min="-2" pref="113" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="toolSet_StepsSet_DuplicateStep" alignment="1" pref="113" max="32767" attributes="0"/>
+                          <Component id="toolSet_StepsSet_AddStep" alignment="1" max="32767" attributes="0"/>
+                          <Component id="toolSet_StepsSet_RenameStep" alignment="1" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -335,7 +346,6 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
               <Group type="102" attributes="0">
                   <Component id="toolSet_StepsSet_DeleteStep" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -344,7 +354,9 @@
                   <Component id="toolSet_StepsSet_RenameStep" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="toolSet_StepsSet_DuplicateStep" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
+              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -435,7 +447,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="toolSet_DisplaySet_ErrorToggle" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="toolSet_DisplaySet_ErrorLevel" max="32767" attributes="0"/>
+                      <Component id="toolSet_DisplaySet_ErrorLevel" pref="211" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="toolSet_DisplaySet_TransitionSpeed_Label" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -456,11 +468,11 @@
                   </Group>
                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Component id="toolSet_DisplaySet_ErrorLevel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="toolSet_DisplaySet_TransitionSpeed_Label" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="toolSet_DisplaySet_TransitionSpeed" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="toolSet_DisplaySet_EditorDisplayToggle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -545,17 +557,18 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="toolSet_SequenceSet_Row" min="-2" pref="40" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="toolSet_SequenceSet_SchoolColor_Label" min="-2" max="-2" attributes="0"/>
+                          <Component id="toolSet_SequenceSet_Column" min="-2" pref="40" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="toolSet_SequenceSet_SchoolColorNoPaint" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="toolSet_SequenceSet_Column" min="-2" pref="40" max="-2" attributes="0"/>
-                          <EmptySpace pref="37" max="32767" attributes="0"/>
-                          <Component id="toolSet_SequenceSet_SchoolColorNoPaint" min="-2" max="-2" attributes="0"/>
+                          <Component id="toolSet_SequenceSet_Row" min="-2" pref="40" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="toolSet_SequenceSet_SchoolColor_Label" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="11" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="toolSet_SequenceSet_SchoolColor1" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="toolSet_SequenceSet_SchoolColor1Paint" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -634,7 +647,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="toolSet_SequenceSet_SchoolColor_Label">
           <Properties>
-            <Property name="text" type="java.lang.String" value="School Colors:"/>
+            <Property name="text" type="java.lang.String" value="Colors:"/>
           </Properties>
         </Component>
         <Component class="org.cnhs.cardstadium.util.ColorPickerButton" name="toolSet_SequenceSet_SchoolColor1">
@@ -681,9 +694,11 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="appIcon">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Always use stateChanged!!!"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/org/cnhs/cardstadium/CardStadium-32.png"/>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>
