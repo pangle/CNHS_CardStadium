@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.MediaTracker;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
@@ -19,7 +20,9 @@ import org.cnhs.cardstadium.model.Stadium;
 import org.cnhs.cardstadium.model.Step;
 import org.cnhs.cardstadium.util.ColorPickerButtonDelegate;
 import org.cnhs.cardstadium.util.DeepCopy;
+import org.cnhs.cardstadium.util.ImageDialogAction;
 import org.cnhs.cardstadium.util.ImageImportUtil;
+import org.cnhs.cardstadium.util.ImageUtil;
 import org.cnhs.cardstadium.util.SequencePrinter;
 import org.cnhs.cardstadium.util.StadiumSyncUtil;
 
@@ -29,7 +32,6 @@ import org.cnhs.cardstadium.util.StadiumSyncUtil;
  */
 public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate {
 
-    public static final String[] VALID_IMAGE_TYPES = {"PNG","GIF","JPG","JPEG"};
 
     /**
      * Creates new form GUI
@@ -757,20 +759,20 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
     }//GEN-LAST:event_toolSet_DisplaySet_EditorDisplayToggleActionPerformed
 
     private void menuBar_StadiumMenu_BackgroundSetItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_StadiumMenu_BackgroundSetItemActionPerformed
-        JFileChooser sfc = new JFileChooser();
+        ImageUtil.loadImageWithFileOpenDialog(this, new ImageDialogAction() {
 
-        sfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        sfc.setMultiSelectionEnabled(false);
+            @Override
+            public void imageWasLoaded(BufferedImage i, File f) {
+                stadium.setStadiumBGFile(f);
+                perspectivePanel.getStadiumLayer().setStadium(stadium.getStadiumBGFile());
+                perspectivePanel.getStadiumLayer().repaint();
+            }
 
-        sfc.setFileFilter(new FileNameExtensionFilter("Image File", VALID_IMAGE_TYPES));
-
-        int choice = sfc.showOpenDialog(this);
-
-        if (choice == JFileChooser.APPROVE_OPTION) {
-            stadium.setStadiumBGFile(sfc.getSelectedFile());
-            perspectivePanel.getStadiumLayer().setStadium(stadium.getStadiumBGFile());
-            perspectivePanel.getStadiumLayer().repaint();
-        }
+            @Override
+            public void imageWasNotLoaded() {
+                // Do nothing
+            }
+        });
     }//GEN-LAST:event_menuBar_StadiumMenu_BackgroundSetItemActionPerformed
 
     private void menuBar_StadiumMenu_BackgroundDefaultItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_StadiumMenu_BackgroundDefaultItemActionPerformed
@@ -780,27 +782,21 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
     }//GEN-LAST:event_menuBar_StadiumMenu_BackgroundDefaultItemActionPerformed
 
     private void menuBar_SequenceMenu_StepFromImageItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_SequenceMenu_StepFromImageItemActionPerformed
-        JFileChooser sfc = new JFileChooser();
+        ImageUtil.loadImageWithFileOpenDialog(this, new ImageDialogAction() {
 
-        sfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        sfc.setMultiSelectionEnabled(false);
+            @Override
+            public void imageWasLoaded(BufferedImage i, File f) {
+                //set the step to be displayed
+                sequence.addStep(sequence.getNumSteps(), ImageImportUtil.getStepFromImage((i), sequence.getGridSize(), 4), f.getName());
+                //set the correct step to be selected in the list
+                toolSet_StepsSet_StepList.setSelectedIndex(sequence.getNumSteps() - 1);
+            }
 
-        sfc.setFileFilter(new FileNameExtensionFilter("Image File", VALID_IMAGE_TYPES));
-
-        int choice = sfc.showOpenDialog(null);
-
-        if (choice == JFileChooser.APPROVE_OPTION) {
-            //set the step to be displayed
-            sequence.addStep(sequence.getNumSteps(),
-                    ImageImportUtil.getStepFromImage(
-                    ImageImportUtil.getBufferedImage(
-                    ImageImportUtil.loadImageWithLocation(
-                    sfc.getSelectedFile().getAbsolutePath(),
-                    new MediaTracker(this), this)), sequence.getGridSize(), 4),
-                    "New Step");
-            //set the correct step to be selected in the list
-            toolSet_StepsSet_StepList.setSelectedIndex(sequence.getNumSteps() - 1);
-        }
+            @Override
+            public void imageWasNotLoaded() {
+                // Do nothing
+            }
+        });
     }//GEN-LAST:event_menuBar_SequenceMenu_StepFromImageItemActionPerformed
 
     private void toolSet_SequenceSet_SchoolColor1PaintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolSet_SequenceSet_SchoolColor1PaintActionPerformed

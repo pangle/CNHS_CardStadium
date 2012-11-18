@@ -335,7 +335,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="toolSet_StepsSet_DeleteStep" alignment="1" min="-2" pref="113" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="toolSet_StepsSet_DuplicateStep" alignment="1" pref="113" max="32767" attributes="0"/>
+                          <Component id="toolSet_StepsSet_DuplicateStep" alignment="1" pref="0" max="32767" attributes="0"/>
                           <Component id="toolSet_StepsSet_AddStep" alignment="1" max="32767" attributes="0"/>
                           <Component id="toolSet_StepsSet_RenameStep" alignment="1" max="32767" attributes="0"/>
                       </Group>
@@ -447,7 +447,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="toolSet_DisplaySet_ErrorToggle" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="toolSet_DisplaySet_ErrorLevel" pref="211" max="32767" attributes="0"/>
+                      <Component id="toolSet_DisplaySet_ErrorLevel" pref="225" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="toolSet_DisplaySet_TransitionSpeed_Label" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -560,15 +560,15 @@
                           <Component id="toolSet_SequenceSet_Column" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="toolSet_SequenceSet_SchoolColorNoPaint" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="toolSet_SequenceSet_Row" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="toolSet_SequenceSet_SchoolColor_Label" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="toolSet_SequenceSet_SchoolColor1" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="toolSet_SequenceSet_SchoolColor1Paint" alignment="0" min="-2" max="-2" attributes="0"/>

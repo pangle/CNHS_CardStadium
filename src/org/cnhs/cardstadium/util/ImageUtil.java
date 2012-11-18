@@ -4,19 +4,39 @@
  */
 package org.cnhs.cardstadium.util;
 
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.image.BufferedImage;
-import java.net.MalformedURLException;
-import java.net.URL;
-import javax.swing.JComponent;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
- * @author workstation
+ * @author pangle
  */
 public class ImageUtil {
+    public static final String VALID_IMAGE_DESCRIPTION = "Image files (.PNG, .GIF, .JPG, .JPEG)";
+    public static final String[] VALID_IMAGE_EXTENSIONS = {"PNG","GIF","JPG","JPEG"};
+    
+    public static void loadImageWithFileOpenDialog(Component parent, ImageDialogAction actions) {
+        final JFileChooser fc = new JFileChooser();
+
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fc.setMultiSelectionEnabled(false);
+
+        fc.setFileFilter(new FileNameExtensionFilter(VALID_IMAGE_DESCRIPTION, VALID_IMAGE_EXTENSIONS));
+
+        int choice = fc.showOpenDialog(parent);
+
+        if (choice == JFileChooser.APPROVE_OPTION) {
+            actions.imageWasLoaded(getBufferedImage(loadImageWithLocation(fc.getSelectedFile().toString(), new MediaTracker(parent), parent)), fc.getSelectedFile());
+        } else {
+            actions.imageWasNotLoaded();
+        }
+    }
+    
     /**
      * Converts the given Image to a BufferedImage. Solves issues with the fact
      *   that Image objects are platform specific.
@@ -38,51 +58,46 @@ public class ImageUtil {
     }
     
     /**
-     * Load an image with the given file location URL.
+     * Load an image from the given classpath location, in form "org/cnhs/cardstadium/myimg.png"
      * @param location
+     * @param t
      * @param requestor
-     * @return 
+     * @return Image
      */
-    public static Image loadImageWithLocation(URL location, JComponent requestor) {
+    public static Image loadImageWithClasspathLocation(String location, MediaTracker t, Object requestor) {
         Image image = null;
 
         try {
-            image = java.awt.Toolkit.getDefaultToolkit().createImage(location);
-            MediaTracker t = new MediaTracker(requestor);
+            image = java.awt.Toolkit.getDefaultToolkit().createImage(requestor.getClass().getClassLoader().getResource(location));
             t.addImage(image, (int) Math.random() * 10000);
             waitForAllImages(t);
-        } catch (Exception ex) {
-            System.err.println("ImageUtil.loadImageWithLocation(String location, MediaTracker t, Object requestor) - Failed.");
+        } catch (Exception e) {
+            
         }
 
 
         return image;
     }
-    
+
     /**
-     * Load an image with the given file location String.
+     * Load an image from the given location on disk.
      * @param location
+     * @param t
      * @param requestor
-     * @return 
+     * @return Image
      */
-    public static Image loadImageWithLocation(String location, JComponent requestor) {
+    public static Image loadImageWithLocation(String location, MediaTracker t, Object requestor) {
+        Image image = null;
+
         try {
-            return loadImageWithLocation(new URL(location), requestor);
-        } catch (MalformedURLException ex) {
-            System.err.println("ImageUtil.loadImageWithLocation(String location, JComponent requestor) - Failed due to malformed URL: \"" + location + "\".");
-        } finally {
-            return null;
+            image = java.awt.Toolkit.getDefaultToolkit().createImage(location);
+            t.addImage(image, (int) Math.random() * 10000);
+            waitForAllImages(t);
+        } catch (Exception e) {
+            
         }
-    }
-    
-    /**
-     * Load an image with the given class path such as, "org/cnhs/cardstadium"
-     * @param classpathLocation
-     * @param requestor
-     * @return 
-     */
-    public static Image loadImageWithClasspathLocation(String classpathLocation, JComponent requestor) {
-        return loadImageWithLocation(requestor.getClass().getClassLoader().getResource(classpathLocation), requestor);
+
+        return image;
     }
     
     /**
