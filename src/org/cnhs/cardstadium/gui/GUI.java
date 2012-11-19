@@ -5,6 +5,9 @@
  */
 package org.cnhs.cardstadium.gui;
 
+import com.apple.eawt.AboutHandler;
+import com.apple.eawt.AppEvent.AboutEvent;
+import com.apple.eawt.Application;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -15,6 +18,7 @@ import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.cnhs.cardstadium.CardStadium;
 import org.cnhs.cardstadium.model.Sequence;
 import org.cnhs.cardstadium.model.Stadium;
 import org.cnhs.cardstadium.model.Step;
@@ -23,6 +27,7 @@ import org.cnhs.cardstadium.util.DeepCopy;
 import org.cnhs.cardstadium.util.ImageDialogAction;
 import org.cnhs.cardstadium.util.ImageImportUtil;
 import org.cnhs.cardstadium.util.ImageUtil;
+import org.cnhs.cardstadium.util.PlatformUtils;
 import org.cnhs.cardstadium.util.SequencePrinter;
 import org.cnhs.cardstadium.util.StadiumSyncUtil;
 
@@ -32,20 +37,42 @@ import org.cnhs.cardstadium.util.StadiumSyncUtil;
  */
 public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate {
 
-
     /**
      * Creates new form GUI
      */
     public GUI() {
+        final ArrayList<Image> icons = new ArrayList<>();
+        icons.add(ImageImportUtil.loadImageWithClasspathLocation("org/cnhs/cardstadium/CardStadium-16.png", new MediaTracker(this), this));
+        icons.add(ImageImportUtil.loadImageWithClasspathLocation("org/cnhs/cardstadium/CardStadium-32.png", new MediaTracker(this), this));
+        icons.add(ImageImportUtil.loadImageWithClasspathLocation("org/cnhs/cardstadium/CardStadium-1024.png", new MediaTracker(this), this));
+        
+        if (PlatformUtils.isMac()) {
+            Application.getApplication().setDockIconImage(icons.get(icons.size() - 1));
+            Application.getApplication().setAboutHandler(new AboutHandler() {
+                @Override
+                public void handleAbout(AboutEvent ae) {
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            new AboutDialog().setVisible(true);
+                        }
+                    });
+                }
+            });
+            System.setProperty("apple.laf.useScreenMenuBar", "true");
+            System.setProperty("com.apple.mrj.application.apple.menu.about.name", CardStadium.APPLICATION_NAME);
+        }
+        
         initComponents();
+        
+        if (PlatformUtils.isMac()) {
+            // Use native handler defined above in pre-init.
+            menuBar_FileMenu_AboutWindow.setVisible(false);
+        }
+        
         this.addMouseListener(perspectivePanel);
         this.addMouseMotionListener(perspectivePanel);
         this.addKeyListener(perspectivePanel);
         this.addComponentListener(perspectivePanel);
-
-        final ArrayList<Image> icons = new ArrayList<>();
-        icons.add(ImageImportUtil.loadImageWithClasspathLocation("org/cnhs/cardstadium/CardStadium-16.png", new MediaTracker(this), this));
-        icons.add(ImageImportUtil.loadImageWithClasspathLocation("org/cnhs/cardstadium/CardStadium-32.png", new MediaTracker(this), this));
         
         this.setIconImages(icons);
 
@@ -55,7 +82,7 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
 
         //sequence = new Sequence();
         syncSequenceToGUI();
-
+        
         toolSet_SequenceSet_SchoolColor1.setDelegate(this);
         toolSet_SequenceSet_SchoolColor2.setDelegate(this);
 
@@ -66,12 +93,10 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         perspectivePanel.getCardLayer().setVisible(true);
         toolSet_SequenceSet_SchoolColor1.setColor(sequence.getC1());
         toolSet_SequenceSet_SchoolColor2.setColor(sequence.getC2());
-
+        
         toolSet_StadiumSet_Row.setValue(stadium.getHorizontalSubdivisions());
         toolSet_StadiumSet_Column.setValue(stadium.getVerticalSubdivisions());
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -140,7 +165,7 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         menuBar_SequenceMenu_StepFromImageItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Card Stadium - Beta");
+        setTitle(CardStadium.APPLICATION_NAME);
 
         toolSet_StadiumSet.setBorder(javax.swing.BorderFactory.createTitledBorder("Stadium"));
 
@@ -263,7 +288,7 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                 .addGroup(toolSet_StepsSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toolSet_StepsSet_DeleteStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(toolSet_StepsSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(toolSet_StepsSet_DuplicateStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                        .addComponent(toolSet_StepsSet_DuplicateStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(toolSet_StepsSet_AddStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(toolSet_StepsSet_RenameStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -336,7 +361,7 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                         .addComponent(toolSet_DisplaySet_Error_Label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(toolSet_DisplaySet_ErrorToggle))
-                    .addComponent(toolSet_DisplaySet_ErrorLevel, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                    .addComponent(toolSet_DisplaySet_ErrorLevel, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                     .addGroup(toolSet_DisplaySetLayout.createSequentialGroup()
                         .addComponent(toolSet_DisplaySet_TransitionSpeed_Label)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -428,12 +453,12 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                         .addComponent(toolSet_SequenceSet_Column, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(toolSet_SequenceSet_SchoolColorNoPaint)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(toolSet_SequenceSetLayout.createSequentialGroup()
                         .addComponent(toolSet_SequenceSet_Row, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(toolSet_SequenceSet_SchoolColor_Label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addComponent(toolSet_SequenceSet_SchoolColor_Label)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(toolSet_SequenceSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toolSet_SequenceSet_SchoolColor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(toolSet_SequenceSet_SchoolColor1Paint))
@@ -629,22 +654,21 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
 
     private void toolSet_DisplaySet_ErrorLevelStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toolSet_DisplaySet_ErrorLevelStateChanged
         // TODO add your handling code here:
-        if(toolSet_DisplaySet_ErrorToggle.isSelected())
-        {
+        if (toolSet_DisplaySet_ErrorToggle.isSelected()) {
             Integer error = toolSet_DisplaySet_ErrorLevel.getValue();
             perspectivePanel.getCardLayer().setError(error);
         }
     }//GEN-LAST:event_toolSet_DisplaySet_ErrorLevelStateChanged
-
+    
     private void toolSet_DisplaySet_ErrorToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolSet_DisplaySet_ErrorToggleActionPerformed
-        if(toolSet_DisplaySet_ErrorToggle.isSelected()) {
+        if (toolSet_DisplaySet_ErrorToggle.isSelected()) {
             perspectivePanel.getCardLayer().setError(toolSet_DisplaySet_ErrorLevel.getValue());
         } else {
             perspectivePanel.getCardLayer().setError(0);
         }
-
+        
     }//GEN-LAST:event_toolSet_DisplaySet_ErrorToggleActionPerformed
-
+    
     private void menuBar_FileMenu_OpenMenu_StadiumItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_FileMenu_OpenMenu_StadiumItemActionPerformed
         stadium = Stadium.loadStadiumWithFileChooser();        // TODO add your handling code here:
         if (stadium != null) {
@@ -656,20 +680,20 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
             toolSet_StadiumSet_GutterSize.setValue((int) (stadium.getSubdivisionGutterSize() * 10000.0));
         }
     }//GEN-LAST:event_menuBar_FileMenu_OpenMenu_StadiumItemActionPerformed
-
+    
     private void menuBar_FileMenu_OpenMenu_SequenceItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_FileMenu_OpenMenu_SequenceItemActionPerformed
         sequence = Sequence.loadSequenceWithFileChooser(perspectivePanel.stadiumLayer);
         if (sequence != null) {
             perspectivePanel.getCardLayer().setSequence(sequence);
-             toolSet_StepsSet_StepList.setSelectedIndex(0);
-             perspectivePanel.getCardLayer().setError(0);
+            toolSet_StepsSet_StepList.setSelectedIndex(0);
+            perspectivePanel.getCardLayer().setError(0);
             perspectivePanel.getCardLayer().setVisible(true);
             toolSet_SequenceSet_SchoolColor1.setColor(sequence.getC1());
             toolSet_SequenceSet_SchoolColor2.setColor(sequence.getC2());
             syncSequenceToGUI();
         }
     }//GEN-LAST:event_menuBar_FileMenu_OpenMenu_SequenceItemActionPerformed
-
+    
     private void toolSet_StepsSet_DeleteStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolSet_StepsSet_DeleteStepActionPerformed
         int currentStep = perspectivePanel.getCardLayer().getStep();
         if (currentStep == 0) {
@@ -686,104 +710,102 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         perspectivePanel.getCardLayer().setStep(perspectivePanel.getCardLayer().getStep());
         perspectivePanel.repaint();
     }//GEN-LAST:event_toolSet_StepsSet_DeleteStepActionPerformed
-
+    
     private void menuBar_FileMenu_SaveMenu_StadiumItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_FileMenu_SaveMenu_StadiumItemActionPerformed
         StadiumSyncUtil.syncEditorToStadium(stadium, perspectivePanel.getEditorLayer());
         stadium.saveToFile(stadium.getFile());
     }//GEN-LAST:event_menuBar_FileMenu_SaveMenu_StadiumItemActionPerformed
-
+    
     private void menuBar_FileMenu_SaveMenu_SequenceItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_FileMenu_SaveMenu_SequenceItemActionPerformed
         sequence.saveToFile(sequence.getFile());
     }//GEN-LAST:event_menuBar_FileMenu_SaveMenu_SequenceItemActionPerformed
-
+    
     private void toolSet_StepsSet_AddStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolSet_StepsSet_AddStepActionPerformed
         sequence.newStep(perspectivePanel.getCardLayer().getStep() + 1);
         perspectivePanel.repaint();
         toolSet_StepsSet_StepList.setSelectedIndex(perspectivePanel.getCardLayer().getStep() + 1);
     }//GEN-LAST:event_toolSet_StepsSet_AddStepActionPerformed
-
+    
     private void menuBar_FileMenu_PrintItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_FileMenu_PrintItemActionPerformed
         SequencePrinter.printSequenceLabels(sequence, "A", "B");
     }//GEN-LAST:event_menuBar_FileMenu_PrintItemActionPerformed
-
+    
     private void toolSet_SequenceSet_RowStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toolSet_SequenceSet_RowStateChanged
         sequence.setGridSize(new Dimension(sequence.getGridSize().width, new Integer(toolSet_SequenceSet_Row.getValue().toString())));
         perspectivePanel.getCardLayer().setSequence(sequence);
         perspectivePanel.getCardLayer().setStep(perspectivePanel.getCardLayer().getStep());
         perspectivePanel.repaint();
     }//GEN-LAST:event_toolSet_SequenceSet_RowStateChanged
-
+    
     private void toolSet_SequenceSet_ColumnStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toolSet_SequenceSet_ColumnStateChanged
         sequence.setGridSize(new Dimension(new Integer(toolSet_SequenceSet_Column.getValue().toString()), sequence.getGridSize().height));
         perspectivePanel.getCardLayer().setSequence(sequence);
         perspectivePanel.getCardLayer().setStep(perspectivePanel.getCardLayer().getStep());
         perspectivePanel.repaint();
     }//GEN-LAST:event_toolSet_SequenceSet_ColumnStateChanged
-
+    
     private void menuBar_FileMenu_SaveAsMenu_StadiumItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_FileMenu_SaveAsMenu_StadiumItemActionPerformed
         JFileChooser sfc = new JFileChooser();
-
+        
         sfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         sfc.setMultiSelectionEnabled(false);
-
+        
         sfc.setFileFilter(new FileNameExtensionFilter("Card Stadium Stadium file", Stadium.FILE_EXTENSION));
-
+        
         int choice = sfc.showSaveDialog(null);
-
+        
         if (choice == JFileChooser.APPROVE_OPTION) {
             stadium.saveToFile(sfc.getSelectedFile());
         }
     }//GEN-LAST:event_menuBar_FileMenu_SaveAsMenu_StadiumItemActionPerformed
-
+    
     private void menuBar_FileMenu_SaveAsMenu_SequenceItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_FileMenu_SaveAsMenu_SequenceItemActionPerformed
         JFileChooser sfc = new JFileChooser();
-
+        
         sfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         sfc.setMultiSelectionEnabled(false);
-
+        
         sfc.setFileFilter(new FileNameExtensionFilter("Card Stadium Sequence file", Sequence.FILE_EXTENSION));
-
+        
         int choice = sfc.showSaveDialog(null);
-
+        
         if (choice == JFileChooser.APPROVE_OPTION) {
             sequence.saveToFile(sfc.getSelectedFile());
         }
     }//GEN-LAST:event_menuBar_FileMenu_SaveAsMenu_SequenceItemActionPerformed
-
+    
     private void toolSet_DisplaySet_TransitionSpeedStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toolSet_DisplaySet_TransitionSpeedStateChanged
         perspectivePanel.cardLayer.setAnimationTiming(toolSet_DisplaySet_TransitionSpeed.getValue());
     }//GEN-LAST:event_toolSet_DisplaySet_TransitionSpeedStateChanged
-
+    
     private void toolSet_DisplaySet_EditorDisplayToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolSet_DisplaySet_EditorDisplayToggleActionPerformed
         perspectivePanel.editorLayer.setVisible(toolSet_DisplaySet_EditorDisplayToggle.isSelected());
     }//GEN-LAST:event_toolSet_DisplaySet_EditorDisplayToggleActionPerformed
-
+    
     private void menuBar_StadiumMenu_BackgroundSetItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_StadiumMenu_BackgroundSetItemActionPerformed
         ImageUtil.loadImageWithFileOpenDialog(this, new ImageDialogAction() {
-
             @Override
             public void imageWasLoaded(BufferedImage i, File f) {
                 stadium.setStadiumBGFile(f);
                 perspectivePanel.getStadiumLayer().setStadium(stadium.getStadiumBGFile());
                 perspectivePanel.getStadiumLayer().repaint();
             }
-
+            
             @Override
             public void imageWasNotLoaded() {
                 // Do nothing
             }
         });
     }//GEN-LAST:event_menuBar_StadiumMenu_BackgroundSetItemActionPerformed
-
+    
     private void menuBar_StadiumMenu_BackgroundDefaultItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_StadiumMenu_BackgroundDefaultItemActionPerformed
         stadium.setStadiumBGFile(new File("DEFAULT"));
         perspectivePanel.getStadiumLayer().setStadium(stadium.getStadiumBGFile());
         perspectivePanel.getStadiumLayer().repaint();
     }//GEN-LAST:event_menuBar_StadiumMenu_BackgroundDefaultItemActionPerformed
-
+    
     private void menuBar_SequenceMenu_StepFromImageItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_SequenceMenu_StepFromImageItemActionPerformed
         ImageUtil.loadImageWithFileOpenDialog(this, new ImageDialogAction() {
-
             @Override
             public void imageWasLoaded(BufferedImage i, File f) {
                 //set the step to be displayed
@@ -791,58 +813,58 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                 //set the correct step to be selected in the list
                 toolSet_StepsSet_StepList.setSelectedIndex(sequence.getNumSteps() - 1);
             }
-
+            
             @Override
             public void imageWasNotLoaded() {
                 // Do nothing
             }
         });
     }//GEN-LAST:event_menuBar_SequenceMenu_StepFromImageItemActionPerformed
-
+    
     private void toolSet_SequenceSet_SchoolColor1PaintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolSet_SequenceSet_SchoolColor1PaintActionPerformed
         if (toolSet_SequenceSet_SchoolColor1Paint.isSelected()) {
             perspectivePanel.getCardLayer().setPaintColor(0);
         }
     }//GEN-LAST:event_toolSet_SequenceSet_SchoolColor1PaintActionPerformed
-
+    
     private void toolSet_SequenceSet_SchoolColor2PaintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolSet_SequenceSet_SchoolColor2PaintActionPerformed
         if (toolSet_SequenceSet_SchoolColor2Paint.isSelected()) {
             perspectivePanel.getCardLayer().setPaintColor(1);
         }
     }//GEN-LAST:event_toolSet_SequenceSet_SchoolColor2PaintActionPerformed
-
+    
     private void toolSet_SequenceSet_SchoolColorNoPaintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolSet_SequenceSet_SchoolColorNoPaintActionPerformed
         if (toolSet_SequenceSet_SchoolColorNoPaint.isSelected()) {
             perspectivePanel.getCardLayer().setPaintColor(-1);
         }
     }//GEN-LAST:event_toolSet_SequenceSet_SchoolColorNoPaintActionPerformed
-
+    
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         int step = perspectivePanel.getCardLayer().getStep();
         sequence.flipColorsForStep(step);
         perspectivePanel.getCardLayer().setStep(step);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
+    
     private void toolSet_StepsSet_StepListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_toolSet_StepsSet_StepListValueChanged
         perspectivePanel.getCardLayer().setStep(toolSet_StepsSet_StepList.getSelectedIndex());
     }//GEN-LAST:event_toolSet_StepsSet_StepListValueChanged
-
+    
     private void toolSet_StepsSet_RenameStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolSet_StepsSet_RenameStepActionPerformed
         String name = JOptionPane.showInputDialog(this, "Step Name:",
                 "Rename Step", JOptionPane.QUESTION_MESSAGE);
-        if(name != null && !name.equals("")){
-            ((Step)(toolSet_StepsSet_StepList.getSelectedValue())).setName(name);
+        if (name != null && !name.equals("")) {
+            ((Step) (toolSet_StepsSet_StepList.getSelectedValue())).setName(name);
         }
         toolSet_StepsSet_StepList.updateUI();
     }//GEN-LAST:event_toolSet_StepsSet_RenameStepActionPerformed
-
+    
     private void toolSet_StepsSet_DuplicateStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolSet_StepsSet_DuplicateStepActionPerformed
         int index = perspectivePanel.getCardLayer().getStep();
-        sequence.addStep(index + 1, (int[][])DeepCopy.copy(sequence.getStep(index)), "Copy of "
+        sequence.addStep(index + 1, (int[][]) DeepCopy.copy(sequence.getStep(index)), "Copy of "
                 + sequence.getStepName(index));
         toolSet_StepsSet_StepList.setSelectedIndex(index + 1);
     }//GEN-LAST:event_toolSet_StepsSet_DuplicateStepActionPerformed
-
+    
     private void menuBar_FileMenu_AboutWindowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_FileMenu_AboutWindowActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -850,24 +872,24 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
             }
         });
     }//GEN-LAST:event_menuBar_FileMenu_AboutWindowActionPerformed
-
+    
     private void toolSet_StadiumSet_GutterSizeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toolSet_StadiumSet_GutterSizeStateChanged
-        perspectivePanel.editorLayer.setSubdivisionGutterSize((double)toolSet_StadiumSet_GutterSize.getValue() / 10000.0);
+        perspectivePanel.editorLayer.setSubdivisionGutterSize((double) toolSet_StadiumSet_GutterSize.getValue() / 10000.0);
         perspectivePanel.editorLayer.invalidateCache();
     }//GEN-LAST:event_toolSet_StadiumSet_GutterSizeStateChanged
-
+    
     private void toolSet_StadiumSet_RowStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toolSet_StadiumSet_RowStateChanged
         perspectivePanel.editorLayer.setHorizontalSubdivisions(new Integer(toolSet_StadiumSet_Row.getValue().toString()));
         perspectivePanel.editorLayer.invalidateCache();
         perspectivePanel.repaint();
     }//GEN-LAST:event_toolSet_StadiumSet_RowStateChanged
-
+    
     private void toolSet_StadiumSet_ColumnStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toolSet_StadiumSet_ColumnStateChanged
         perspectivePanel.editorLayer.setVerticalSubdivisions(new Integer(toolSet_StadiumSet_Column.getValue().toString()));
         perspectivePanel.editorLayer.invalidateCache();
         perspectivePanel.repaint();
     }//GEN-LAST:event_toolSet_StadiumSet_ColumnStateChanged
-
+    
     private void syncSequenceToGUI() {
         toolSet_SequenceSet_Row.setValue(sequence.getGridSize().height);
         toolSet_SequenceSet_Column.setValue(sequence.getGridSize().width);
@@ -902,14 +924,13 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUI().setVisible(true);
             }
         });
     }
-
+    
     @Override
     public void respondToColorChange(Object sender, Color c) {
         if (sender == toolSet_SequenceSet_SchoolColor1) {
@@ -917,9 +938,8 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         } else if (sender == toolSet_SequenceSet_SchoolColor2) {
             sequence.setColors(sequence.getC1(), c);
         }
-
+        
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel appIcon;
     private javax.swing.ButtonGroup colorButtons;
