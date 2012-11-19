@@ -92,14 +92,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuBar_FileMenu_PrintItemActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuBar_FileMenu_AboutWindow">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="About"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuBar_FileMenu_AboutWindowActionPerformed"/>
-              </Events>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuBar_StadiumMenu">
@@ -144,6 +136,29 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuBar_SequenceMenu_StepFromImageItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Help"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="menuBar_HelpMenu_AboutWindow">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="About"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuBar_HelpMenu_AboutWindowActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuBar_HelpMenu_HelpWindow">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Application Help"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuBar_HelpMenu_HelpWindowActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -332,15 +347,13 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jScrollPane1" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="116" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="toolSet_StepsSet_DeleteStep" alignment="1" min="-2" pref="113" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="toolSet_StepsSet_DuplicateStep" alignment="1" pref="0" max="32767" attributes="0"/>
-                          <Component id="toolSet_StepsSet_AddStep" alignment="1" max="32767" attributes="0"/>
-                          <Component id="toolSet_StepsSet_RenameStep" alignment="1" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="toolSet_StepsSet_DuplicateStep" alignment="1" pref="0" max="32767" attributes="0"/>
+                      <Component id="toolSet_StepsSet_RenameStep" alignment="1" max="32767" attributes="0"/>
+                      <Component id="toolSet_StepsSet_AddStep" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

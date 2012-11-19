@@ -28,7 +28,6 @@ import org.cnhs.cardstadium.util.ImageDialogAction;
 import org.cnhs.cardstadium.util.ImageImportUtil;
 import org.cnhs.cardstadium.util.ImageUtil;
 import org.cnhs.cardstadium.util.PlatformUtils;
-import org.cnhs.cardstadium.util.SequencePrinter;
 import org.cnhs.cardstadium.util.StadiumSyncUtil;
 
 /**
@@ -66,7 +65,7 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         
         if (PlatformUtils.isMac()) {
             // Use native handler defined above in pre-init.
-            menuBar_FileMenu_AboutWindow.setVisible(false);
+            menuBar_HelpMenu_AboutWindow.setVisible(false);
         }
         
         this.addMouseListener(perspectivePanel);
@@ -156,13 +155,15 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         menuBar_FileMenu_SaveAsMenu_StadiumItem = new javax.swing.JMenuItem();
         menuBar_FileMenu_SaveAsMenu_SequenceItem = new javax.swing.JMenuItem();
         menuBar_FileMenu_PrintItem = new javax.swing.JMenuItem();
-        menuBar_FileMenu_AboutWindow = new javax.swing.JMenuItem();
         menuBar_StadiumMenu = new javax.swing.JMenu();
         menuBar_StadiumMenu_BackgroundSetItem = new javax.swing.JMenuItem();
         menuBar_StadiumMenu_BackgroundDefaultItem = new javax.swing.JMenuItem();
         menuBar_SequenceMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         menuBar_SequenceMenu_StepFromImageItem = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        menuBar_HelpMenu_AboutWindow = new javax.swing.JMenuItem();
+        menuBar_HelpMenu_HelpWindow = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(CardStadium.APPLICATION_NAME);
@@ -283,14 +284,13 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         toolSet_StepsSetLayout.setHorizontalGroup(
             toolSet_StepsSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(toolSet_StepsSetLayout.createSequentialGroup()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(toolSet_StepsSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toolSet_StepsSet_DeleteStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(toolSet_StepsSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(toolSet_StepsSet_DuplicateStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(toolSet_StepsSet_AddStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(toolSet_StepsSet_RenameStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(toolSet_StepsSet_DuplicateStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(toolSet_StepsSet_RenameStep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(toolSet_StepsSet_AddStep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         toolSet_StepsSetLayout.setVerticalGroup(
@@ -564,14 +564,6 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         });
         menuBar_FileMenu.add(menuBar_FileMenu_PrintItem);
 
-        menuBar_FileMenu_AboutWindow.setText("About");
-        menuBar_FileMenu_AboutWindow.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuBar_FileMenu_AboutWindowActionPerformed(evt);
-            }
-        });
-        menuBar_FileMenu.add(menuBar_FileMenu_AboutWindow);
-
         menuBar.add(menuBar_FileMenu);
 
         menuBar_StadiumMenu.setText("Stadium");
@@ -613,6 +605,26 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         menuBar_SequenceMenu.add(menuBar_SequenceMenu_StepFromImageItem);
 
         menuBar.add(menuBar_SequenceMenu);
+
+        jMenu1.setText("Help");
+
+        menuBar_HelpMenu_AboutWindow.setText("About");
+        menuBar_HelpMenu_AboutWindow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBar_HelpMenu_AboutWindowActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuBar_HelpMenu_AboutWindow);
+
+        menuBar_HelpMenu_HelpWindow.setText("Application Help");
+        menuBar_HelpMenu_HelpWindow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBar_HelpMenu_HelpWindowActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuBar_HelpMenu_HelpWindow);
+
+        menuBar.add(jMenu1);
 
         setJMenuBar(menuBar);
 
@@ -727,7 +739,11 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
     }//GEN-LAST:event_toolSet_StepsSet_AddStepActionPerformed
     
     private void menuBar_FileMenu_PrintItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_FileMenu_PrintItemActionPerformed
-        SequencePrinter.printSequenceLabels(sequence, "A", "B");
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new SequencePrinterDialog(sequence).setVisible(true);
+            }
+        });
     }//GEN-LAST:event_menuBar_FileMenu_PrintItemActionPerformed
     
     private void toolSet_SequenceSet_RowStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toolSet_SequenceSet_RowStateChanged
@@ -865,13 +881,13 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         toolSet_StepsSet_StepList.setSelectedIndex(index + 1);
     }//GEN-LAST:event_toolSet_StepsSet_DuplicateStepActionPerformed
     
-    private void menuBar_FileMenu_AboutWindowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_FileMenu_AboutWindowActionPerformed
+    private void menuBar_HelpMenu_AboutWindowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_HelpMenu_AboutWindowActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AboutDialog().setVisible(true);
             }
         });
-    }//GEN-LAST:event_menuBar_FileMenu_AboutWindowActionPerformed
+    }//GEN-LAST:event_menuBar_HelpMenu_AboutWindowActionPerformed
     
     private void toolSet_StadiumSet_GutterSizeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_toolSet_StadiumSet_GutterSizeStateChanged
         perspectivePanel.editorLayer.setSubdivisionGutterSize((double) toolSet_StadiumSet_GutterSize.getValue() / 10000.0);
@@ -889,6 +905,14 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
         perspectivePanel.editorLayer.invalidateCache();
         perspectivePanel.repaint();
     }//GEN-LAST:event_toolSet_StadiumSet_ColumnStateChanged
+
+    private void menuBar_HelpMenu_HelpWindowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_HelpMenu_HelpWindowActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new HelpDialog().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_menuBar_HelpMenu_HelpWindowActionPerformed
     
     private void syncSequenceToGUI() {
         toolSet_SequenceSet_Row.setValue(sequence.getGridSize().height);
@@ -943,11 +967,11 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel appIcon;
     private javax.swing.ButtonGroup colorButtons;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuBar_FileMenu;
-    private javax.swing.JMenuItem menuBar_FileMenu_AboutWindow;
     private javax.swing.JMenu menuBar_FileMenu_OpenMenu;
     private javax.swing.JMenuItem menuBar_FileMenu_OpenMenu_SequenceItem;
     private javax.swing.JMenuItem menuBar_FileMenu_OpenMenu_StadiumItem;
@@ -958,6 +982,8 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
     private javax.swing.JMenu menuBar_FileMenu_SaveMenu;
     private javax.swing.JMenuItem menuBar_FileMenu_SaveMenu_SequenceItem;
     private javax.swing.JMenuItem menuBar_FileMenu_SaveMenu_StadiumItem;
+    private javax.swing.JMenuItem menuBar_HelpMenu_AboutWindow;
+    private javax.swing.JMenuItem menuBar_HelpMenu_HelpWindow;
     private javax.swing.JMenu menuBar_SequenceMenu;
     private javax.swing.JMenuItem menuBar_SequenceMenu_StepFromImageItem;
     private javax.swing.JMenu menuBar_StadiumMenu;
