@@ -22,16 +22,17 @@ import org.cnhs.cardstadium.model.Sequence;
 public class SequencePrinter implements Printable {
 
     private final Sequence MY_SEQUENCE;
-    private final int H_LABEL_GAP = 10;
-    private final int V_LABEL_GAP = 10;
-    private final int LABEL_WIDTH = 200;
-    private final int LABEL_HEIGHT = 100;
-    private final int LABELS_PER_LINE = 2;
-    private final int LINES_PER_PAGE = 6;
+    private final int H_LABEL_GAP;
+    private final int V_LABEL_GAP;
+    private final int LABEL_WIDTH;
+    private final int LABEL_HEIGHT;
+    private final int LABELS_PER_LINE;
+    private final int LINES_PER_PAGE;
     private final int LABELS_PER_PAGE;
     private final String C1_NAME, C2_NAME;
     private final int VAL_GAP = 5;
     private final int NUM_PAGES;
+    public final static int PIXELS_PER_INCH = 72;
 
     /**
      * Create a printable object
@@ -41,12 +42,26 @@ public class SequencePrinter implements Printable {
      * the card
      * @param c2Name the human-readable name of the color on the second side of
      * the card
+     * @param hLabelGap the horizontal gap, in inches, between the labels
+     * @param vLabelGap the vertical gap, in inches, between the labels
+     * @param labelWidth the width, in inches, of one label
+     * @param labelHeight the height, in inches of one label
+     * @param labelsPerLine the number of labels in one row
+     * @param linesPerPage the number of lines on one page
      */
-    public SequencePrinter(Sequence seq, String c1Name, String c2Name) {
+    public SequencePrinter(Sequence seq, String c1Name, String c2Name,
+            double hLabelGap, double vLabelGap, double labelWidth,
+            double labelHeight, int labelsPerLine, int linesPerPage) {
         super();
         MY_SEQUENCE = seq;
         C1_NAME = c1Name;
         C2_NAME = c2Name;
+        H_LABEL_GAP = SequencePrinter.inchesToPixels(hLabelGap);
+        V_LABEL_GAP = SequencePrinter.inchesToPixels(vLabelGap);
+        LABEL_WIDTH = SequencePrinter.inchesToPixels(labelWidth);
+        LABEL_HEIGHT = SequencePrinter.inchesToPixels(labelHeight);
+        LABELS_PER_LINE = labelsPerLine;
+        LINES_PER_PAGE = linesPerPage;
         LABELS_PER_PAGE = LABELS_PER_LINE * LINES_PER_PAGE;
         NUM_PAGES = (int) Math.ceil((double) (MY_SEQUENCE.getGridSize().width
                 * MY_SEQUENCE.getGridSize().height) / LABELS_PER_PAGE);
@@ -158,12 +173,21 @@ public class SequencePrinter implements Printable {
      * the card
      * @param c2Name the human-readable name of the color on the second side of
      * the card
+     * @param hLabelGap the horizontal gap, in inches, between the labels
+     * @param vLabelGap the vertical gap, in inches, between the labels
+     * @param labelWidth the width, in inches, of one label
+     * @param labelHeight the height, in inches of one label
+     * @param labelsPerLine the number of labels in one row
+     * @param linesPerPage the number of lines on one page
      */
     public static void printSequenceLabels(Sequence seq, String c1Name,
-            String c2Name) {
+            String c2Name, double hLabelGap, double vLabelGap, double labelWidth,
+            double labelHeight, int labelsPerLine, int linesPerPage) {
         //create the job
         PrinterJob job = PrinterJob.getPrinterJob();
-        job.setPrintable(new SequencePrinter(seq, c1Name, c2Name));
+        job.setPrintable(new SequencePrinter(seq, c1Name, c2Name, hLabelGap,
+                vLabelGap, labelWidth, labelHeight, labelsPerLine,
+                linesPerPage));
         //show a dialog to print
         boolean doPrint = job.printDialog();
         //if the user said to print, print
@@ -174,5 +198,10 @@ public class SequencePrinter implements Printable {
                 ex.printStackTrace(System.err);
             }
         }
+    }
+
+    public static int inchesToPixels(double inches){
+        int pixels = (int) (inches*PIXELS_PER_INCH + .5);
+        return pixels;
     }
 }
