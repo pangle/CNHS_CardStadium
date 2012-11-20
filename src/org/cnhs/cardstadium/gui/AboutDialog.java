@@ -9,6 +9,7 @@ import java.awt.MediaTracker;
 import java.util.ArrayList;
 import org.cnhs.cardstadium.CardStadium;
 import org.cnhs.cardstadium.util.ImageImportUtil;
+import org.cnhs.cardstadium.util.WindowUtil;
 
 /**
  *
@@ -27,6 +28,8 @@ public class AboutDialog extends javax.swing.JFrame {
         icons.add(ImageImportUtil.loadImageWithClasspathLocation("org/cnhs/cardstadium/CardStadium-32.png", new MediaTracker(this), this));
         
         this.setIconImages(icons);
+        
+        WindowUtil.centerWindowOnScreen(this);
     }
 
     /**
@@ -61,7 +64,7 @@ public class AboutDialog extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTextArea1.setRows(5);
-        jTextArea1.setText("http://www.java2s.com/Code/Java/Swing-JFC/Usedraganddroptoreorderalist.htm\nhttp://www.java2s.com/Code/Java/2D-Graphics-GUI/Providesusefulmethodsforconvertingimagesfromonecolourdepthtoanother.htm\nhttp://javatechniques.com/blog/faster-deep-copies-of-java-objects/\n");
+        jTextArea1.setText("Philip Isenhour - DeepCopy.java - http://javatechniques.com/blog/faster-deep-copies-of-java-objects/\nR.J. Lorimer - ImagePreviewPanel.java - http://www.javalobby.org/forums/thread.jspa?messageID=91844740\n\nJava2s.com for various code examples");
         jScrollPane1.setViewportView(jTextArea1);
 
         jLabel4.setText("This program includes code from the following authors...");

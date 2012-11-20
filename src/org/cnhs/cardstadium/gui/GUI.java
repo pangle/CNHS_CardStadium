@@ -29,6 +29,7 @@ import org.cnhs.cardstadium.util.ImageImportUtil;
 import org.cnhs.cardstadium.util.ImageUtil;
 import org.cnhs.cardstadium.util.PlatformUtils;
 import org.cnhs.cardstadium.util.StadiumSyncUtil;
+import org.cnhs.cardstadium.util.WindowUtil;
 
 /**
  *
@@ -67,6 +68,8 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
             // Use native handler defined above in pre-init.
             menuBar_HelpMenu_AboutWindow.setVisible(false);
         }
+        
+        WindowUtil.centerWindowOnScreen(this);
         
         this.addMouseListener(perspectivePanel);
         this.addMouseMotionListener(perspectivePanel);
@@ -216,7 +219,7 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                         .addGroup(toolSet_StadiumSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(toolSet_StadiumSet_Row, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(toolSet_StadiumSet_Column, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 114, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         toolSet_StadiumSetLayout.setVerticalGroup(
@@ -448,16 +451,16 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                         .addContainerGap()
                         .addComponent(toolSet_SequenceSet_Column_Label)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(toolSet_SequenceSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(toolSet_SequenceSet_Row)
+                    .addComponent(toolSet_SequenceSet_Column, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(toolSet_SequenceSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(toolSet_SequenceSetLayout.createSequentialGroup()
-                        .addComponent(toolSet_SequenceSet_Column, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(toolSet_SequenceSet_SchoolColorNoPaint)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(toolSet_SequenceSetLayout.createSequentialGroup()
-                        .addComponent(toolSet_SequenceSet_Row, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(toolSet_SequenceSet_SchoolColor_Label)))
+                        .addGap(0, 31, Short.MAX_VALUE))
+                    .addComponent(toolSet_SequenceSet_SchoolColor_Label, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(toolSet_SequenceSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toolSet_SequenceSet_SchoolColor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -907,11 +910,13 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
     }//GEN-LAST:event_toolSet_StadiumSet_ColumnStateChanged
 
     private void menuBar_HelpMenu_HelpWindowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_HelpMenu_HelpWindowActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HelpDialog().setVisible(true);
-            }
-        });
+        try {
+         String url = "http://www.pangle.me/wordpress";
+         java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+       }
+       catch (java.io.IOException e) {
+           System.out.println(e.getMessage());
+       }
     }//GEN-LAST:event_menuBar_HelpMenu_HelpWindowActionPerformed
     
     private void syncSequenceToGUI() {
