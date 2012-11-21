@@ -200,6 +200,11 @@ public class SequencePrinter implements Printable {
         }
     }
 
+    /**
+     * Converts inches to pixels using a pre-programmed conversion factor
+     * @param inches the number of inches
+     * @return how many pixels will take up that many inches
+     */
     public static int inchesToPixels(double inches){
         int pixels = (int) (inches*PIXELS_PER_INCH + .5);
         return pixels;

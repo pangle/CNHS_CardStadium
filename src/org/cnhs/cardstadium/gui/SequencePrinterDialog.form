@@ -379,12 +379,12 @@
         </Container>
         <Component class="javax.swing.JTextField" name="color1NameField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Color 1"/>
+            <Property name="text" type="java.lang.String" value="Color1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="color2NameField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Color 2"/>
+            <Property name="text" type="java.lang.String" value="Color2"/>
           </Properties>
         </Component>
       </SubComponents>

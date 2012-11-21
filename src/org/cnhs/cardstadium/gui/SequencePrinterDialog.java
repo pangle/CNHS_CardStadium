@@ -214,9 +214,9 @@ public class SequencePrinterDialog extends javax.swing.JFrame {
             .addGap(0, 20, Short.MAX_VALUE)
         );
 
-        color1NameField.setText("Color 1");
+        color1NameField.setText("Color1");
 
-        color2NameField.setText("Color 2");
+        color2NameField.setText("Color2");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
