@@ -574,14 +574,10 @@
                       <Component id="toolSet_SequenceSet_Row" max="32767" attributes="0"/>
                       <Component id="toolSet_SequenceSet_Column" pref="40" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="toolSet_SequenceSet_SchoolColorNoPaint" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="36" max="32767" attributes="0"/>
-                      </Group>
                       <Component id="toolSet_SequenceSet_SchoolColor_Label" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="toolSet_SequenceSet_SchoolColorNoPaint" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -607,6 +603,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="toolSet_SequenceSet_Column_Label" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="toolSet_SequenceSet_Column" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="toolSet_SequenceSet_SchoolColorNoPaint" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -617,12 +614,9 @@
                       <Component id="toolSet_SequenceSet_SchoolColor2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="toolSet_SequenceSet_SchoolColor1Paint" min="-2" max="-2" attributes="0"/>
-                          <Component id="toolSet_SequenceSet_SchoolColor2Paint" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="toolSet_SequenceSet_SchoolColorNoPaint" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="toolSet_SequenceSet_SchoolColor1Paint" min="-2" max="-2" attributes="0"/>
+                      <Component id="toolSet_SequenceSet_SchoolColor2Paint" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
@@ -681,7 +675,7 @@
               <ComponentRef name="colorButtons"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="Off"/>
+            <Property name="text" type="java.lang.String" value="Invert"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toolSet_SequenceSet_SchoolColorNoPaintActionPerformed"/>

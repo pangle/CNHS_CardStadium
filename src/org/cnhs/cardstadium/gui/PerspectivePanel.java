@@ -5,6 +5,7 @@
 package org.cnhs.cardstadium.gui;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
@@ -23,6 +24,7 @@ public class PerspectivePanel extends JLayeredPane implements MouseListener, Mou
     PerspectiveStadiumPanel stadiumLayer;
     PerspectiveCardAnimationPanel cardLayer;
     PerspectiveEditorPanel editorLayer;
+    double lastScale = 0;
 
     public PerspectivePanel() {
         stadiumLayer = new PerspectiveStadiumPanel();
@@ -30,14 +32,14 @@ public class PerspectivePanel extends JLayeredPane implements MouseListener, Mou
         stadiumLayer.setBounds(0, 0, 200, 200);
         stadiumLayer.setVisible(true);
         //this.addMouseListener(editorLayer);
-        
+
         editorLayer = new PerspectiveEditorPanel();
         editorLayer.setOpaque(false);
         editorLayer.setBounds(0, 0, 200, 200);
         editorLayer.setVisible(true);
         this.addMouseListener(editorLayer);
         this.addMouseMotionListener(editorLayer);
-        
+
         cardLayer = new PerspectiveCardAnimationPanel(editorLayer);
         cardLayer.setOpaque(false);
         cardLayer.setBounds(0, 0, 200, 200);
@@ -46,7 +48,7 @@ public class PerspectivePanel extends JLayeredPane implements MouseListener, Mou
         this.addMouseMotionListener(cardLayer);
         this.addKeyListener(cardLayer);
 
-        
+
 
         this.add(stadiumLayer, JLayeredPane.PALETTE_LAYER);
         this.add(cardLayer, JLayeredPane.MODAL_LAYER);
@@ -54,24 +56,24 @@ public class PerspectivePanel extends JLayeredPane implements MouseListener, Mou
 
         this.setBackground(Color.WHITE);
         this.setOpaque(true);
-        
+
         editorLayer.setBounds(0, 0, this.getWidth(), this.getHeight());
         editorLayer.revalidate();
-        
+
         cardLayer.setBounds(0, 0, this.getWidth(), this.getHeight());
         cardLayer.revalidate();
-        
+
         stadiumLayer.setBounds(0, 0, this.getWidth(), this.getHeight());
         stadiumLayer.revalidate();
-        
+
         stadiumLayer.repaint();
-        
+
         cardLayer.setScale(stadiumLayer.getScale());
         cardLayer.repaint();
-        
+
         editorLayer.setScale(stadiumLayer.getScale());
         editorLayer.repaint();
-        
+
         validate();
         setVisible(true);
     }
@@ -87,8 +89,6 @@ public class PerspectivePanel extends JLayeredPane implements MouseListener, Mou
     public PerspectiveCardAnimationPanel getCardLayer() {
         return cardLayer;
     }
-    
-    
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -122,35 +122,60 @@ public class PerspectivePanel extends JLayeredPane implements MouseListener, Mou
     public void componentResized(ComponentEvent e) {
         editorLayer.setBounds(0, 0, this.getWidth(), this.getHeight());
         editorLayer.revalidate();
-        
+
         cardLayer.setBounds(0, 0, this.getWidth(), this.getHeight());
         cardLayer.revalidate();
-        
+
         stadiumLayer.setBounds(0, 0, this.getWidth(), this.getHeight());
         stadiumLayer.revalidate();
-        
+
         stadiumLayer.repaint();
-        
+
         cardLayer.setScale(stadiumLayer.getScale());
         cardLayer.repaint();
-        
+
         editorLayer.setScale(stadiumLayer.getScale());
         editorLayer.repaint();
+
+        lastScale = stadiumLayer.getScale();
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        if (lastScale != stadiumLayer.getScale()) {
+            editorLayer.setBounds(0, 0, this.getWidth(), this.getHeight());
+            editorLayer.revalidate();
+
+            cardLayer.setBounds(0, 0, this.getWidth(), this.getHeight());
+            cardLayer.revalidate();
+
+            stadiumLayer.setBounds(0, 0, this.getWidth(), this.getHeight());
+            stadiumLayer.revalidate();
+
+            stadiumLayer.repaint();
+
+            cardLayer.setScale(stadiumLayer.getScale());
+            cardLayer.repaint();
+
+            editorLayer.setScale(stadiumLayer.getScale());
+            editorLayer.repaint();
+        }
+
+        lastScale = stadiumLayer.getScale();
+
+        super.paint(g);
     }
 
     @Override
     public void componentMoved(ComponentEvent e) {
-        
     }
 
     @Override
     public void componentShown(ComponentEvent e) {
-        
     }
 
     @Override
     public void componentHidden(ComponentEvent e) {
-        
     }
 
     @Override

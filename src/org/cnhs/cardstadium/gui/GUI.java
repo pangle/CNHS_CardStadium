@@ -417,7 +417,7 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
 
         colorButtons.add(toolSet_SequenceSet_SchoolColorNoPaint);
         toolSet_SequenceSet_SchoolColorNoPaint.setSelected(true);
-        toolSet_SequenceSet_SchoolColorNoPaint.setText("Off");
+        toolSet_SequenceSet_SchoolColorNoPaint.setText("Invert");
         toolSet_SequenceSet_SchoolColorNoPaint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toolSet_SequenceSet_SchoolColorNoPaintActionPerformed(evt);
@@ -454,13 +454,10 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                 .addGroup(toolSet_SequenceSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(toolSet_SequenceSet_Row)
                     .addComponent(toolSet_SequenceSet_Column, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(toolSet_SequenceSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(toolSet_SequenceSetLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(toolSet_SequenceSet_SchoolColorNoPaint)
-                        .addGap(0, 31, Short.MAX_VALUE))
-                    .addComponent(toolSet_SequenceSet_SchoolColor_Label, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(toolSet_SequenceSet_SchoolColor_Label, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(toolSet_SequenceSet_SchoolColorNoPaint, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(toolSet_SequenceSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toolSet_SequenceSet_SchoolColor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -479,7 +476,8 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(toolSet_SequenceSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(toolSet_SequenceSet_Column_Label)
-                    .addComponent(toolSet_SequenceSet_Column, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(toolSet_SequenceSet_Column, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(toolSet_SequenceSet_SchoolColorNoPaint))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(toolSet_SequenceSetLayout.createSequentialGroup()
                 .addGroup(toolSet_SequenceSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -487,11 +485,9 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
                     .addComponent(toolSet_SequenceSet_SchoolColor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(toolSet_SequenceSet_SchoolColor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(toolSet_SequenceSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(toolSet_SequenceSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(toolSet_SequenceSet_SchoolColor1Paint)
-                        .addComponent(toolSet_SequenceSet_SchoolColor2Paint))
-                    .addComponent(toolSet_SequenceSet_SchoolColorNoPaint))
+                .addGroup(toolSet_SequenceSetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(toolSet_SequenceSet_SchoolColor1Paint)
+                    .addComponent(toolSet_SequenceSet_SchoolColor2Paint))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 

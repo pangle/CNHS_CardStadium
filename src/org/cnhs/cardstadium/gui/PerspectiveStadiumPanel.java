@@ -38,6 +38,8 @@ public class PerspectiveStadiumPanel extends JPanel {
             
             this.stadium = ImageImportUtil.getBufferedImage(tmp);
         }
+        cachedDimension = null;
+        cachedStadium = null;
     }
     
     private BufferedImage cachedStadium;

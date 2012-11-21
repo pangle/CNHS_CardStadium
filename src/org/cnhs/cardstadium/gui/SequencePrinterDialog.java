@@ -6,6 +6,7 @@ package org.cnhs.cardstadium.gui;
 
 import org.cnhs.cardstadium.model.Sequence;
 import org.cnhs.cardstadium.util.SequencePrinter;
+import org.cnhs.cardstadium.util.WindowUtil;
 
 /**
  *
@@ -21,6 +22,8 @@ public class SequencePrinterDialog extends javax.swing.JFrame {
         printingSequence = sequence;
         color1PreviewPanel.setBackground(printingSequence.getC1());
         color2PreviewPanel.setBackground(printingSequence.getC2());
+        
+        WindowUtil.centerWindowOnScreen(this);
 
         setVisible(true);
     }
