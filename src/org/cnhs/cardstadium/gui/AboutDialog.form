@@ -103,7 +103,7 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="http://www.java2s.com/Code/Java/Swing-JFC/Usedraganddroptoreorderalist.htm&#xa;http://www.java2s.com/Code/Java/2D-Graphics-GUI/Providesusefulmethodsforconvertingimagesfromonecolourdepthtoanother.htm&#xa;http://javatechniques.com/blog/faster-deep-copies-of-java-objects/&#xa;"/>
+            <Property name="text" type="java.lang.String" value="Philip Isenhour - DeepCopy.java - http://javatechniques.com/blog/faster-deep-copies-of-java-objects/&#xa;R.J. Lorimer - ImagePreviewPanel.java - http://www.javalobby.org/forums/thread.jspa?messageID=91844740&#xa;&#xa;Java2s.com for various code examples"/>
           </Properties>
         </Component>
       </SubComponents>

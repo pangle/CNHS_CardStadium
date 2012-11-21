@@ -15,7 +15,7 @@ import org.cnhs.cardstadium.gui.GUI;
  */
 public class CardStadium {
     public static final String APPLICATION_NAME = "Card Stadium";
-    public static final String APPLICATION_VERSION = "beta (November 16)";
+    public static final String APPLICATION_VERSION = "0.8";
     
     public static void main(String[] args) {
         // Sets the LaF to the OS default
