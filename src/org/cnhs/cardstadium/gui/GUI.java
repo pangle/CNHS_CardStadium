@@ -803,7 +803,11 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
             public void imageWasLoaded(BufferedImage i, File f) {
                 stadium.setStadiumBGFile(f);
                 perspectivePanel.getStadiumLayer().setStadium(stadium.getStadiumBGFile());
+                perspectivePanel.getEditorLayer().constrainPointsWithinBounds(
+                        perspectivePanel.getStadiumLayer().getStadium().getWidth(),
+                        perspectivePanel.getStadiumLayer().getStadium().getHeight());
                 perspectivePanel.getStadiumLayer().repaint();
+                
             }
             
             @Override
@@ -816,6 +820,9 @@ public class GUI extends javax.swing.JFrame implements ColorPickerButtonDelegate
     private void menuBar_StadiumMenu_BackgroundDefaultItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBar_StadiumMenu_BackgroundDefaultItemActionPerformed
         stadium.setStadiumBGFile(new File("DEFAULT"));
         perspectivePanel.getStadiumLayer().setStadium(stadium.getStadiumBGFile());
+        perspectivePanel.getEditorLayer().constrainPointsWithinBounds(
+                        perspectivePanel.getStadiumLayer().getStadium().getWidth(),
+                        perspectivePanel.getStadiumLayer().getStadium().getHeight());
         perspectivePanel.getStadiumLayer().repaint();
     }//GEN-LAST:event_menuBar_StadiumMenu_BackgroundDefaultItemActionPerformed
     

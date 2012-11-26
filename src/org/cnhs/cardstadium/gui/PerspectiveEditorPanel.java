@@ -143,7 +143,35 @@ public class PerspectiveEditorPanel extends JPanel implements MouseMotionListene
     public void invalidateCache() {
         cacheIsValid = false;
     }
-
+    
+    /**
+     * 
+     */
+    public void constrainPointsWithinBounds(int xMax, int yMax) {
+        Point[] cornerPoints = {upperLeftPoint, upperRightPoint, lowerLeftPoint, lowerRightPoint};
+        
+        for (Point p : cornerPoints) {
+            if (p.x < 0) {
+                p.x = 0;
+            }
+            
+            if (p.x > xMax) {
+                p.x = xMax;
+            }
+            
+            if (p.y < 0) {
+                p.y = 0;
+            }
+            
+            if (p.y > yMax) {
+                p.y = yMax;
+            }
+        }
+        
+        invalidateCache();
+    }
+    
+    
     /**
      * Create a four-sided polygon from the given four points. Points should be
      * defined circularly.
